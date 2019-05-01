@@ -30,7 +30,7 @@ export class AppComponent {
           const formData = new FormData();
           formData.append('file', file, droppedFile.relativePath);
 
-          this.http.post('https://mybackend.com/ExcelUpload/rest/excel/upload', formData, { responseType: 'blob' })
+          this.http.post('http://localhost:6005/ExcelUpload/rest/excel/upload', formData, { responseType: 'blob' })
           .subscribe(data => {
             // Sanitized logo returned from backend
           });
