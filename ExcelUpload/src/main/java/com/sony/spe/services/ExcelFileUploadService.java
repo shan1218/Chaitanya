@@ -1,5 +1,6 @@
 package com.sony.spe.services;
 
+import com.sony.spe.entity.ExcelUpload;
 import com.sony.spe.vo.ExcelColumnVO;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -26,6 +28,7 @@ import java.util.List;
 
 @Service
 @EnableAsync
+@Transactional
 public class ExcelFileUploadService {
 
     private static final Logger LOGGER = Logger.getLogger(ExcelFileUploadService.class);
@@ -83,9 +86,11 @@ public class ExcelFileUploadService {
         dir.mkdirs();
     }
 
+    @Transactional
     public List<ExcelColumnVO> readExcel(String tempExcelPath){
 
         List<ExcelColumnVO> excelRowValueList = new ArrayList<ExcelColumnVO>();
+        List<ExcelUpload> uploadDataList = new ArrayList<ExcelUpload>();
         try {
             FileInputStream fis = new FileInputStream(new File(tempExcelPath));
 
@@ -99,20 +104,33 @@ public class ExcelFileUploadService {
                 Row currentRow = iterator.next();
                 if(isFirstRowIgnored) {
                     ExcelColumnVO excelData = new ExcelColumnVO();
+                    ExcelUpload uploadData = new ExcelUpload();
                     Iterator<Cell> cellIterator = currentRow.iterator();
                     while (cellIterator.hasNext()) {
 
                         Cell currentCell = cellIterator.next();
                         if(currentCell.getColumnIndex() == 0) {
-                            excelData.setColumn1(currentCell.getStringCellValue());
+                            excelData.setEpisodeId((int)currentCell.getNumericCellValue());
+                            uploadData.setEpisodeId((int)currentCell.getNumericCellValue());
                         } else if(currentCell.getColumnIndex() == 1) {
-                            excelData.setColumn2(currentCell.getStringCellValue());
+                            excelData.setSongId((int)currentCell.getNumericCellValue());
+                            uploadData.setSongId((int)currentCell.getNumericCellValue());
                         } else if(currentCell.getColumnIndex() == 2) {
-                            excelData.setColumn3(currentCell.getStringCellValue());
-                        } else if(currentCell.getColumnIndex() == 3) {
-                            excelData.setColumn4(currentCell.getStringCellValue());
+                            excelData.setSongName(currentCell.getStringCellValue());
+                            uploadData.setSongName(currentCell.getStringCellValue());
                         }
+                        /* else if(currentCell.getColumnIndex() == 3) {
+                            excelData.setCreatedBy(currentCell.getStringCellValue());
+                            uploadData.setCreatedBy(Integer.parseInt(currentCell.getStringCellValue()));
+                        } else if(currentCell.getColumnIndex() == 4) {
+                            excelData.setCreateddate(currentCell.getStringCellValue());
+                            uploadData.setEpisodeId(Integer.parseInt(currentCell.getStringCellValue()));
+                        }*/
                     }
+                    uploadData.setCreatedBy("System");
+                    uploadData.setCreatedDt(Calendar.getInstance());
+                    entityManager.merge(uploadData);
+                    entityManager.flush();
                     excelRowValueList.add(excelData);
                 }
                 if(!isFirstRowIgnored) {

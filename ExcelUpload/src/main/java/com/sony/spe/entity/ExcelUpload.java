@@ -1,14 +1,51 @@
-package com.sony.spe.vo;
+package com.sony.spe.entity;
 
-public class ExcelColumnVO {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Calendar;
 
+@Entity
+@Table(name = "EXCEL_UPLOAD")
+@NamedQuery(name = "ExcelUpload.findAll", query = "SELECT a FROM ExcelUpload a")
+public class ExcelUpload implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @SequenceGenerator(name = "excelUploadSeq", sequenceName = "EXCEL_UPLOAD_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "excelUploadSeq")
+    @Column(name = "ID")
+    private Integer id;
+
+    @Column(name = "EPISODE_ID")
     private Integer episodeId;
+
+    @Column(name = "SONG_ID")
     private Integer songId;
+
+    @Column(name = "SONG_NAME")
     private String songName;
+
+    @Column(name = "CREATED_BY")
     private String createdBy;
-    private String createdDt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_DT")
+    private Calendar createdDt;
+
+    @Column(name = "COLUMN6")
     private String column6;
+
+    @Column(name = "COLUMN7")
     private String column7;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getEpisodeId() {
         return episodeId;
@@ -42,11 +79,11 @@ public class ExcelColumnVO {
         this.createdBy = createdBy;
     }
 
-    public String getCreatedDt() {
+    public Calendar getCreatedDt() {
         return createdDt;
     }
 
-    public void setCreatedDt(String createdDt) {
+    public void setCreatedDt(Calendar createdDt) {
         this.createdDt = createdDt;
     }
 
@@ -66,3 +103,4 @@ public class ExcelColumnVO {
         this.column7 = column7;
     }
 }
+
