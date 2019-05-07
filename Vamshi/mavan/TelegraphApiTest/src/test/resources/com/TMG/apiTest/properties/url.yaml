@@ -1,0 +1,9 @@
+environmentList:
+  - name: local
+    endpoints: http://editor.swagger.io/travel-places/v2
+
+  - name: ci6
+    endpoints: https://petstore.swagger.io/v2/pet
+
+  - name: ci7
+    endpoints: http://aem-docker-ci7.aws-preprod.telegraph.co.uk:4502

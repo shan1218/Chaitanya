@@ -8,8 +8,9 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class PetStoreApiTest {
 
-    public PetStoreApiTest(){
-        RestAssured.baseURI = ApiConfiguration.PET_STORE_API_URI;
+    public PetStoreApiTest(String endPoint){
+        //RestAssured.baseURI = ApiConfiguration.PET_STORE_API_URI;
+        RestAssured.baseURI = endPoint;
     }
 
     public void findByStatus(String status) {
@@ -24,9 +25,10 @@ public class PetStoreApiTest {
 
     public String getAllDataByStatus(String status) {
         Response response =
-                given().accept("application/xml").
+                given().contentType("application/json").
                         when().
                         get("/findByStatus?status="+status).andReturn();
+        System.out.println("Response : "+response.jsonPath().getString("name"));
         return response.getBody().asString();
     }
 
