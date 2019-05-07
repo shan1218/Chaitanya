@@ -1,0 +1,4 @@
+com\TMG\apiTest\cucumber\api\test\TestOpenNotifyService.class
+com\TMG\apiTest\cucumber\stepDefinitions\test\TestOpenNotifyDefinition.class
+com\TMG\apiTest\cucumber\CucumberRunner.class
+com\TMG\apiTest\cucumber\ApiConfiguration.class

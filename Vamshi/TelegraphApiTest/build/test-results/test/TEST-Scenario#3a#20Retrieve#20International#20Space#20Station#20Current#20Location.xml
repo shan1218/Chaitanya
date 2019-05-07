@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Scenario: Retrieve International Space Station Current Location" tests="4" skipped="0" failures="0" errors="0" timestamp="2019-05-07T14:31:47" hostname="SC-CCX8152" time="5.496">
+  <properties/>
+  <testcase name="Given I access the ISS Current Location" classname="Scenario: Retrieve International Space Station Current Location" time="0.001"/>
+  <testcase name="When I retrieve the ISS Current Location" classname="Scenario: Retrieve International Space Station Current Location" time="0.0"/>
+  <testcase name="Then I see the ISS Current Location" classname="Scenario: Retrieve International Space Station Current Location" time="0.001"/>
+  <testcase name="classMethod" classname="Scenario: Retrieve International Space Station Current Location" time="7.342"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
