@@ -1,5 +1,9 @@
 package com.TMG.apiTest.helper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+
 import java.io.File;
 import java.util.logging.Logger;
 
@@ -15,5 +19,19 @@ public class TmgUtil {
 	}
 	public static <T> T getTestData(String fileName, Class<T> target) {
 		return PropertyReader.loadTelegraphPojo(PROPERTIES_PATH + fileName + PROPERTY_FILE_EXTENSION, target);
+	}
+
+	public static String converyObjectToJsonString(Object souce){
+
+		String writeValueAsString = "";
+		if (null != souce) {
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				writeValueAsString = mapper.writeValueAsString(souce);
+			} catch (JsonProcessingException e) {
+				writeValueAsString = "";
+			}
+		}
+		return writeValueAsString;
 	}
 }

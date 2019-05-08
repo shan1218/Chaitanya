@@ -1,7 +1,10 @@
-Feature: Find Travel Place
+Feature: Create Search Travel Place
 
-  Scenario Outline: Travel Place Detail
-    Given I access the place by flakeId "<placeDetail>"
+  Scenario Outline: Create and Search Place Detail
+    Given I Initialize Travel Page "<createPlace>"
+    Then I Create A First Place
+    Then I Create A Second Place
+    Then I Search A Place "<searchPlace>"
     Examples:
-      |placeDetail|
-      |TravelPlace|
+      |createPlace|  |searchPlace|
+      |CreatePlace|  |SearchPlace|
