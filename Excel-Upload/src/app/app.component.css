@@ -13,7 +13,7 @@
 } */
 
 .app-header {
-    background-image: url('/assets/images/magic_header.jpg');
+    background-image: url('/assets/images/top_bg.jpg');
     background-repeat: repeat-x;
     height: 60px;
 }
