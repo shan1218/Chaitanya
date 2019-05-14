@@ -1,8 +1,8 @@
 package com.sony.spe.services;
 
 import com.sony.spe.entity.ExcelUpload;
+import com.sony.spe.util.MagicUtil;
 import com.sony.spe.vo.ExcelColumnVO;
-import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -20,11 +20,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 @EnableAsync
@@ -36,16 +32,15 @@ public class ExcelFileUploadService {
     @PersistenceContext
     private EntityManager entityManager;
 
-
     public ResponseEntity<String> upload(MultipartFile file) {
 
         String response = "{\"isSuccess\":\"true\",\"message\":\"Success\"}";
-        String currentTimeStamp = getCurrentTimeStamp();
-        String tempPathToConvertMultipartToFile = getTempPathToSaveMultipartFileToFile();
+        String currentTimeStamp = MagicUtil.getCurrentTimeStamp();
+        String tempPathToConvertMultipartToFile = MagicUtil.getTempPathToSaveMultipartFileToFile();
         String folderWithCurrentTimpStamp = tempPathToConvertMultipartToFile+currentTimeStamp+File.separator;
-        createFolder(folderWithCurrentTimpStamp);
+        MagicUtil.createFolder(folderWithCurrentTimpStamp);
         //String newExcelFileName = folderWithCurrentTimpStamp+currentTimeStamp+".xlsx";
-        converyMultipartToFile(file, folderWithCurrentTimpStamp);
+        MagicUtil.converyMultipartToFile(file, folderWithCurrentTimpStamp);
 
         List<ExcelColumnVO> excelRowValueList = readExcel(folderWithCurrentTimpStamp+file.getOriginalFilename());
         LOGGER.info("Excel Row Count : "+excelRowValueList.size());
@@ -54,36 +49,6 @@ public class ExcelFileUploadService {
         FileSystemUtils.deleteRecursively(new File(tempPathToConvertMultipartToFile+currentTimeStamp));
 
         return new ResponseEntity<String>(response, HttpStatus.OK);
-    }
-
-    public String getTempPathToSaveMultipartFileToFile(){
-
-        String currentPath = System.getProperty("user.dir");
-        LOGGER.info("Current working directory path : "+currentPath);
-
-        if(!currentPath.endsWith(File.separator)){
-            currentPath = currentPath + File.separator;
-        }
-        LOGGER.info("Current working directory path : "+currentPath);
-
-        return currentPath+"uploadFile"+File.separator;
-    }
-
-    public void converyMultipartToFile(MultipartFile file, String destinationDirectory){
-        try {
-            FileUtils.writeByteArrayToFile(new File(destinationDirectory+file.getOriginalFilename()), file.getBytes());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public String getCurrentTimeStamp(){
-        Calendar cal = Calendar.getInstance();
-        return cal.getTimeInMillis()+"";
-    }
-    public void createFolder(String folderPath){
-        File dir = new File(folderPath);
-        dir.mkdirs();
     }
 
     @Transactional

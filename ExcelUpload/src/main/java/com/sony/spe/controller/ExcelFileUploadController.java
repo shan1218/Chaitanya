@@ -22,5 +22,4 @@ public class ExcelFileUploadController {
         LOGGER.info("file : "+file.getContentType()+" : "+file.getName() + " : "+file.getOriginalFilename() + " : "+file.getSize());
         return excelFileUploadService.upload(file);
     }
-
 }
