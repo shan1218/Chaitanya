@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Telegraph.iml" filepath="$PROJECT_DIR$/.idea/Telegraph.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IntegrationApi/mavan/TelegraphApiTest/TelegraphApiTest.iml" filepath="$PROJECT_DIR$/IntegrationApi/mavan/TelegraphApiTest/TelegraphApiTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Vamshi/mavan/TelegraphApiTest/TelegraphApiTest.iml" filepath="$PROJECT_DIR$/Vamshi/mavan/TelegraphApiTest/TelegraphApiTest.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,9 @@
+environmentList:
+  - name: local
+    endpoints: http://alb.api-platforms-preprod.telegraph.co.uk
+
+  - name: ci6
+    endpoints: http://editor.swagger.io/travel-places/v2
+
+  - name: ci7
+    endpoints: http://aem-docker-ci7.aws-preprod.telegraph.co.uk:4502

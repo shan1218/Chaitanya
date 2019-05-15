@@ -1,0 +1,168 @@
+{
+  "flakeId": "flakeForMigration",
+  "uri": {
+    "namespace": "http://data.telegraph.co.uk/resource/",
+    "localName": "oldHotelFlakeId"
+  },
+  "name": "hotel name",
+  "aliases": [
+    "aliase1",
+    "aliase2"
+  ],
+  "reservationDetails": {
+    "hotelUrl": "http://test.hotel.com",
+    "reservationUrl": "http://test.reservation.com",
+    "partner": {
+      "id": "kKPg1rKDrKJ",
+      "label": "Booking.com"
+    },
+    "productId": "1352",
+    "price": {
+      "original": {
+        "currencyCode": "EUR",
+        "value": 123.321
+      },
+      "inGBP": {
+        "currencyCode": "GBP",
+        "value": 123.321
+      }
+    }
+  },
+  "locations": [
+    {
+      "id": "idB66",
+      "label": "B66",
+      "type": "Address",
+      "lat": 0.02,
+      "long": 0.02
+    }
+  ],
+  "approver": {
+    "address": "approver@address.com",
+    "timestamp": 15678789
+  },
+  "lastEditor": {
+    "address": "lastEditor@address.com",
+    "timestamp": 32145787
+  },
+  "contactDetails": [
+    {
+      "label": "contactLabel",
+      "type": "contactType",
+      "alternativeLabel": "alternativeLabel",
+      "notes": "notes"
+    }
+  ],
+  "images": [
+    {
+      "url_medium": "url_medium2",
+      "url_xsmall": "url_xsmall2"
+    },
+    {
+      "url_medium": "url_medium3",
+      "url_xsmall": "url_xsmall3"
+    }
+  ],
+  "ratings": [
+    {
+      "label": "food",
+      "value": 1,
+      "text": "excellent food"
+    }
+  ],
+  "isPublished": true,
+  "disambiguationHint": "disambiguationHint",
+  "geoLocalisationHint": "geoLocalisationHint",
+  "averageRating": 8.0,
+  "pageUrl": "http://pageUrl.com",
+  "packages": [
+    {
+      "standAloneTotalPricePerPerson": 12.1,
+      "averageCostPerPerson": 35.2,
+      "currencyCode": "GBP",
+      "source": "expedia",
+      "hotelId": "expedia1354",
+      "pics": [
+        {
+          "url_medium": "url_medium",
+          "url_xsmall": "url_xsmall"
+        },
+        {
+          "url_medium": "url_medium1",
+          "url_xsmall": "url_xsmall1"
+        }
+      ],
+      "numberOfNights": 2,
+      "airportCode": "CLJ"
+    }
+  ],
+  "aemId": "myAemId",
+  "updatedFields": [
+    "name",
+    "itinerary"
+  ],
+  "annotations": {
+    "facilities": [
+      {
+        "id": "spa_id",
+        "label": "spa"
+      },
+      {
+        "id": "pool_id",
+        "label": "pool"
+      },
+      {
+        "id": "beach_id",
+        "label": "beach"
+      }
+    ],
+    "editorial": [
+      {
+        "id": "editorial",
+        "label": "editorialLabel"
+      }
+    ],
+    "activeOffers": [
+      {
+        "id": "activeOffers",
+        "label": "activeOffersLabel"
+      }
+    ],
+    "types": [
+      {
+        "id": "hotel_id",
+        "label": "hotel"
+      },
+      {
+        "id": "motel_id",
+        "label": "motel"
+      },
+      {
+        "id": "b&b_id",
+        "label": "b&b"
+      }
+    ],
+    "explicitAnnotations": [
+      {
+        "id": "explicitAnnotations",
+        "label": "explicitAnnotationsLabel"
+      }
+    ]
+  },
+  "productAnnotations": [
+    {
+      "id": "productAnnotationId1",
+      "label": "productAnnotationLabel1",
+      "type": [
+        "productAnnotationType1"
+      ]
+    },
+    {
+      "id": "productAnnotationId2",
+      "label": "productAnnotationLabel2",
+      "type": [
+        "productAnnotationType2"
+      ]
+    }
+  ]
+}
