@@ -95,5 +95,56 @@ public class TravelPlaceDefinition extends StepDefinition {
         travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
         travelHotelApi.searchHotelByPlace("/search?annotations=", placeToSearch);
     }
+
+    @When("^I add relationship between Place A and Place X, Place X as a parent of Place B$")
+    public void iAddRelationshipBetweenHotelsAndPlaces() {
+        TravelPlace travelPlace = new TravelPlace();
+        String placeId2 = propertyFileReader.readProperty("id2");
+        String placeId3 = propertyFileReader.readProperty("id3");
+        String addRelationEndpoint = propertyFileReader.readProperty("addRelation");
+        travelPlaceApi.addRelationBetweenMultiplePlaces(addRelationEndpoint, placeId2, placeId3);
+
+    }
+
+    @Then("^I Create A Third Place$")
+    public void iCreateAThirdPlace() {
+        TravelPlace travelPlace = new TravelPlace();
+        travelPlace.setId(propertyFileReader.readProperty("id3"));
+        travelPlace.setLabel(propertyFileReader.readProperty("label3"));
+        travelPlace.setType(propertyFileReader.readProperty("type3"));
+        travelPlace.setLat(propertyFileReader.readProperty("lat3"));
+        travelPlace.setLong(propertyFileReader.readProperty("long3"));
+        travelPlaceApi.createPlace("", travelPlace);
+
+    }
+
+    @Then("^Hotel A should be available on Place X Hotel searches$")
+    public void hotelAShouldBeAvailableOnPlaceXHotelSearches() {
+        String placeToSearch = propertyFileReader.readProperty("id3");
+        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
+        travelHotelApi.searchHotelByPlace("/search?annotations=", placeToSearch);
+
+    }
+
+    @When("^I remove relationship between Place A and Place X, remove Place X as a parent of Place B$")
+    public void iRemoveRelationshipBetweenPlaceAAndPlaceXRemovePlaceXAsAParentOfPlaceB() {
+
+        TravelPlace travelPlace = new TravelPlace();
+        String placeId2 = propertyFileReader.readProperty("id2");
+        String placeId3 = propertyFileReader.readProperty("id3");
+        String removeRelationEndpoint = propertyFileReader.readProperty("removeRelation");
+        travelPlaceApi.removeRelationBetweenMultiplePlaces(removeRelationEndpoint, placeId2, placeId3);
+
+    }
+
+    @Then("^Hotel A should not be available on Place X Hotel searches$")
+    public void hotelAShouldNotBeAvailableOnPlaceXHotelSearches() {
+        String placeToSearch = propertyFileReader.readProperty("id3");
+        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
+        travelHotelApi.searchHotelByPlace("/search?annotations=", placeToSearch);
+
+    }
+
+
 }
 
