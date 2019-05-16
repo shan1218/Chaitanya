@@ -27,3 +27,5 @@ build/*
 *.iml
 *.ipr
 .idea/
+
+Excel-Upload/node_modules/

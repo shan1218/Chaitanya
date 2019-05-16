@@ -1,0 +1,19 @@
+/* .buttonStyle{
+    color: black;
+    padding: 6px 51px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: rgb(19, 141, 141);
+    
+} */
+
+.app-header {
+    background-image: url('/assets/images/top_bg.jpg');
+    background-repeat: repeat-x;
+    height: 60px;
+}

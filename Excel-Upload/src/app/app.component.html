@@ -1,0 +1,27 @@
+<header class="w-100 app-header">
+    <img src="assets/images/magic_header.jpg" alt="">
+</header>
+<div class="center p-3">
+    <h4 class="font-weight-normal">Excel File Upload</h4>
+    <file-drop *ngIf="!uploadingFiles" dropZoneLabel="Drop files here OR&nbsp;" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)"
+        [showBrowseBtn]="true" browseBtnLabel="Choose a File" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+    </file-drop>
+    <i *ngIf="uploadingFiles" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+    <div class="upload-table py-3" *ngIf="files.length">
+        <h3>Uploaded files:</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody class="upload-name-style">
+                <tr *ngFor="let item of files; let i=index">
+                    <td>
+                        <strong>{{ item.relativePath }}</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
