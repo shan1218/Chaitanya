@@ -36,7 +36,8 @@ public class TravelPlaceApi {
     }
 
     public void addRelationBetweenPlaces(String apiPath, String placeId1, String placeId2){
-        Response response = RestService.postMethod("json",placeId2+"/addRelation/"+placeId1, "");
+        LOGGER.info("End Point : "+RestAssured.baseURI);
+        Response response = RestService.postMethod("json","/"+placeId2+"/addRelation/"+placeId1, "");
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, 201);
     }

@@ -24,7 +24,6 @@ public class TravelPlaceDefinition extends StepDefinition {
 
     @Given("^I Initialize Travel Page \"([^\"]*)\"$")
     public void initializeTravelPage(String fileName) {
-        System.out.println("FileName : " + fileName);
         propertyFileReader = TmgUtil.loadPropertyFile(fileName, "travelPlace");
         createPlacePath = propertyFileReader.readProperty("createPlacePath");
         travelPlaceApi = new TravelPlaceApi(getEnvironment().getEndpoints() + createPlacePath);
@@ -58,7 +57,7 @@ public class TravelPlaceDefinition extends StepDefinition {
         String placeId1 = propertyFileReader.readProperty("id1");
         String placeId2 = propertyFileReader.readProperty("id2");
         String addRelationEndpoint = propertyFileReader.readProperty("addRelation");
-        travelPlaceApi.addRelationBetweenPlaces(addRelationEndpoint, placeId2, placeId1);
+        travelPlaceApi.addRelationBetweenPlaces(addRelationEndpoint, placeId1, placeId2);
 
     }
 
