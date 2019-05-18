@@ -1,8 +1,8 @@
 package com.TMG.apiTest.api.service.place;
 
+import com.TMG.apiTest.api.VOs.Locations;
 import com.TMG.apiTest.restAssuredUtil.RestService;
 import com.TMG.apiTest.helper.TmgUtil;
-import com.TMG.apiTest.vo.TravelPlace;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import org.junit.Assert;
@@ -25,7 +25,7 @@ public class TravelPlaceApi {
         junit.framework.Assert.assertEquals("Correct Success code was returned", value, successCode);
     }
 
-    public void createPlace(String apiPath, TravelPlace travelPlace) {
+    public void createPlace(String apiPath, Locations travelPlace) {
         String requestBody = TmgUtil.converyObjectToJsonString(travelPlace);
         LOGGER.info("End Point : " + RestAssured.baseURI);
         LOGGER.info("the API path is - " + apiPath);
@@ -35,9 +35,9 @@ public class TravelPlaceApi {
         Assert.assertEquals(statusCode, 201);
     }
 
-    public void addRelationBetweenPlaces(String apiPath, String placeId1, String placeId2) {
+    public void addRelationBetweenPlaces(String apiPath, String placeIdA, String placeIdB) {
         LOGGER.info("End Point : " + RestAssured.baseURI);
-        Response response = RestService.postMethod("json", "/" + placeId2 + "/addRelation/" + placeId1, "");
+        Response response = RestService.postMethod("json", "/" + placeIdB + "/addRelation/" + placeIdA, "");
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, 201);
     }

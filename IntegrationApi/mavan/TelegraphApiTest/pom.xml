@@ -144,6 +144,12 @@
             <version>1.2.4-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>co.cask.hydrator</groupId>
+            <artifactId>database-plugins</artifactId>
+            <version>1.2.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <repositories>

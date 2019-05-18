@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import java.io.File;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import static com.TMG.apiTest.config.AppConfig.*;
@@ -33,5 +34,11 @@ public class TmgUtil {
 			}
 		}
 		return writeValueAsString;
+	}
+
+	public static int generateRandomNumber(){
+		Random rand = new Random();
+		int value = rand.nextInt(50000);
+		return value;
 	}
 }

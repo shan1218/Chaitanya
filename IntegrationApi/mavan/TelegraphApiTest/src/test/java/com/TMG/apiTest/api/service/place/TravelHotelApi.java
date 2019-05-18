@@ -1,6 +1,8 @@
 package com.TMG.apiTest.api.service.place;
 
         import com.TMG.apiTest.restAssuredUtil.RestService;
+        import com.fasterxml.jackson.core.JsonProcessingException;
+        import com.fasterxml.jackson.databind.ObjectMapper;
         import com.jayway.restassured.RestAssured;
         import com.jayway.restassured.response.Response;
         import org.junit.Assert;
@@ -21,8 +23,16 @@ public class TravelHotelApi {
         junit.framework.Assert.assertEquals( "Correct Success code was returned", value, successCode);
     }
 
-    public void createHotelWithPlace(String apiPath, String body) {
-        Response response = RestService.postMethod("json", apiPath, body);
+    public <T> void createHotelWithPlace(String apiPath, T body) throws JsonProcessingException {
+        String jsonString = "";
+        if(!(body instanceof String)) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            jsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(body);
+        } else {
+            jsonString = body.toString();
+
+        }
+        Response response = RestService.postMethod("json", apiPath, jsonString);
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, 200);
     }

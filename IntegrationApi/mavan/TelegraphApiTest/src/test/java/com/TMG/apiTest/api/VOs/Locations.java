@@ -1,4 +1,5 @@
-package com.TMG.apiTest.vo;
+
+package com.TMG.apiTest.api.VOs;
 
 import com.fasterxml.jackson.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.Map;
         "lat",
         "long"
 })
-public class TravelPlace {
+public class Locations {
     @JsonProperty("id")
     private String id;
     @JsonProperty("label")
