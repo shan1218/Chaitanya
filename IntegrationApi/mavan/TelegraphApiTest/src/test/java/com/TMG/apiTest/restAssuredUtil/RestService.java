@@ -27,6 +27,12 @@ public class RestService {
         return request.post(path).andReturn();
     }
 
+    public static Response deleteMethod(String accept, String path){
+        LOGGER.info("\nDelete Api Path : "+path);
+        RequestSpecification request = RestAssured.given().accept(getAcceptHeader(accept)).headers(getHeaders());
+        return request.delete(path).andReturn();
+    }
+
     public static String getAcceptHeader(String accept){
         String acceptHeader = "application/json";
         if(null != accept && accept.trim().equalsIgnoreCase("xml")){

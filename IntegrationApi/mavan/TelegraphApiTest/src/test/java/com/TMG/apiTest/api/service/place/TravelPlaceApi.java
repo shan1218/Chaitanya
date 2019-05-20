@@ -25,6 +25,10 @@ public class TravelPlaceApi {
         junit.framework.Assert.assertEquals("Correct Success code was returned", value, successCode);
     }
 
+    public void deletePlace(String apiPath){
+
+    }
+
     public void createPlace(String apiPath, Locations travelPlace) {
         String requestBody = TmgUtil.converyObjectToJsonString(travelPlace);
         LOGGER.info("End Point : " + RestAssured.baseURI);
@@ -46,6 +50,12 @@ public class TravelPlaceApi {
         Response response = RestService.getMethod("json", apiPath);
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, 201);
+    }
+
+    public void deletePlace(String apiPath, String placeId) {
+        Response response = RestService.deleteMethod("json", apiPath+"/"+placeId);
+        int statusCode = response.getStatusCode();
+        Assert.assertEquals(statusCode, 200);
     }
 
     public void addRelationBetweenMultiplePlaces(String apiPath, String placeId2, String placeId3) {

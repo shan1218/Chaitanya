@@ -43,4 +43,11 @@ public class TravelHotelApi {
         LOGGER.info("Search Response : " + response.asString());
         Assert.assertEquals(statusCode, 200);
     }
+
+    public void deleteHotelByFlakeId(String apiPath, String flakeId) {
+        Response response = RestService.deleteMethod("json", apiPath + "/" +flakeId);
+        int statusCode = response.getStatusCode();
+        LOGGER.info("Search Response : " + response.asString());
+        Assert.assertEquals(statusCode, 200);
+    }
 }

@@ -24,12 +24,19 @@ public class TravelPlaceDefinition extends StepDefinition {
     TravelPlaceApi travelPlaceApi;
     TravelHotelApi travelHotelApi;
     String createPlacePath;
+    Integer placeIncrementer = null;
+    String propertyFilePath = null;
     HashMap<String, String> placeIdMap  = new HashMap<String, String>();
 
     @Given("^I Initialize Travel Page \"([^\"]*)\"$")
     public void initializeTravelPage(String fileName) {
         propertyFileReader = TmgUtil.loadPropertyFile(fileName, "travelPlace");
+        propertyFilePath = TmgUtil.getPropertyFilePath(fileName, "travelPlace");
+        System.out.println("propertyFilePath : "+propertyFilePath);
         createPlacePath = propertyFileReader.readProperty("createPlacePath");
+        placeIncrementer = Integer.parseInt(propertyFileReader.readProperty("placeIncrementer"));
+        Integer nextValue = placeIncrementer + 1;
+        propertyFileReader.setProperty("placeIncrementer", nextValue+"", propertyFilePath);
         travelPlaceApi = new TravelPlaceApi(getEnvironment().getEndpoints() + createPlacePath);
     }
 
@@ -118,6 +125,23 @@ public class TravelPlaceDefinition extends StepDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Then("^I Delete Hotel A$")
+    public void iDeleteHotelA() throws Throwable {
+        File file = ResourceUtils.getFile("classpath:com/TMG/apiTest/properties/hotel/createHotel.json");
+        String content = new String(Files.readAllBytes(file.toPath()));
+        ObjectMapper mapper = new ObjectMapper();
+        HotelVO hotel = mapper.readValue(content , HotelVO.class);
+        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
+        travelHotelApi.deleteHotelByFlakeId("", hotel.getFlakeid());
+    }
+
+    @Then("^I Delete PlaceA and PlaceB and PlaceC and Hotel \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+    public void iDeletePlaceAAndPlaceBAndPlaceCAndHotel(String place1, String place2, String place3) throws Throwable {
+        travelPlaceApi.deletePlace("", place3);
+        travelPlaceApi.deletePlace("", place2);
+        travelPlaceApi.deletePlace("", place1);
     }
 
 //

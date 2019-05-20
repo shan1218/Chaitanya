@@ -18,6 +18,12 @@ public class TmgUtil {
 		//return new PropertyReader(PROPERTIES_PATH + folder + File.separator + fileName + PROPERTIES_SUFFIX);
 		return new PropertyReader(PROPERTIES_PATH + folder + "/" + fileName + PROPERTIES_SUFFIX);
 	}
+
+	public static String getPropertyFilePath(String fileName, String folder) {
+		//return new PropertyReader(PROPERTIES_PATH + folder + File.separator + fileName + PROPERTIES_SUFFIX);
+		return PROPERTIES_PATH + folder + "/" + fileName + PROPERTIES_SUFFIX;
+	}
+
 	public static <T> T getTestData(String fileName, Class<T> target) {
 		return PropertyReader.loadTelegraphPojo(PROPERTIES_PATH + fileName + PROPERTY_FILE_EXTENSION, target);
 	}
