@@ -8,4 +8,11 @@ public class PlaceConfig {
 
     public static final String PLACE_INCREMENTER = "placeIncrementer";
     public static String PLACE_PROPERTY_PACKAGE = "travelPlace";
+    public static String PLACE_PROPERTY_FILENAME = "CreatePlace";
+
+    public static final String ID = "id";
+    public static final String LABEL = "label";
+    public static final String TYPE = "type";
+    public static final String LAT = "lat";
+    public static final String LONG = "long";
 }

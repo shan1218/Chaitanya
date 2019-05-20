@@ -2,20 +2,27 @@ Feature: Create Search Travel Place
 
   @api
   Scenario Outline: Create Place
-    Given I Initialize Travel Page "<createPlace>"
-    Then I Delete Hotel A
-    Then I Delete PlaceA and PlaceB and PlaceC and Hotel "<placename>" "<placename2>" "<placename3>"
-    Then I create a Place "<placename>" with type "<type>" lat "<lat>" and long "<long>"
-    Then I create a Place "<placename2>" with type "<type2>" lat "<lat2>" and long "<long2>"
-    Then I create a Place "<placename3>" with type "<type3>" lat "<lat3>" and long "<long3>"
-    When I create Hotel A with locations containing Place B "<placeNameXB>"
-    When I add relationship between First Place A "<placenameA>" and Second Place B "<placenameB>" , Place A as the parent of Place B
-    Then Hotel A should be available on Place A "<placename2A>" Hotel searches
-    Then Hotel A should be available on Place B "<placename2B>" Hotel searches
+    Given I Initialize Travel Page
+    Then I delete a Place "<placeA>" "<placeB>" "<placeC>"
+    Then I create a Place "<placeA>"
+    Then I create a Place "<placeB>"
+    Then I create a Place "<placeC>"
+    When I create Hotel A with locations containing Place B "<placeB>"
 
     Examples:
-      | createPlace | placename   | type | lat  | long | placename2 | type2   | lat2 | long2 | placename3 | type3   | lat3 | long3 | placeNameXB  | placenameA  | placenameB  | placename2A | placename2B |
-      | CreatePlace | placeTestA  | city | 0.01 | 0.01 | placeTestB | Address | 0.02 | 0.02  | placeTestC | Address | 0.03 | 0.03  | placeTestB   | placeTestA  | placeTestB  | placeTestA  | placeTestB  |
+      | placeA | placeB | placeC |
+      | A      | B      | C      |
+
+
+  Scenario Outline: Search Place
+    Given I Initialize Travel Page
+    When I add relationship between First Place A "<placeA>" and Second Place B "<placeB>" , Place A as the parent of Place B
+    Then Hotel A should be available on Place A "<placeA>" Hotel searches
+    Then Hotel A should be available on Place B "<placeB>" Hotel searches
+
+    Examples:
+      | placeA | placeB | placeC |
+      | A      | B      | C      |
 
 
   @api
