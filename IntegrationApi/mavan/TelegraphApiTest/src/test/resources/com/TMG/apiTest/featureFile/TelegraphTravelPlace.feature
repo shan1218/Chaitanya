@@ -14,8 +14,8 @@ Feature: Create Search Travel Place
 #    Then Hotel A should be available on Place B "<placename2B>" Hotel searches
 
     Examples:
-      | createPlace | placename | type | lat  | long | placename2 | type2   | lat2 | long2 | placename3 | type3   | lat3 | long3 | placeNameXB | placenameA | placenameB | placename2A | placename2B |
-      | CreatePlace | placeA    | city | 0.01 | 0.01 | placeB     | Address | 0.02 | 0.02  | placeC     | Address | 0.03 | 0.03  | placeB      | placeA     | placeB     | placeA      | placeB      |
+      | createPlace | placename     | type | lat  | long | placename2     | type2   | lat2 | long2 | placename3     | type3   | lat3 | long3 | placeNameXB  | placenameA  | placenameB  | placename2A | placename2B |
+      | CreatePlace | placeTestA    | city | 0.01 | 0.01 | placeTestB     | Address | 0.02 | 0.02  | placeTestC     | Address | 0.03 | 0.03  | placeTestB   | placeTestA  | placeTestB  | placeTestA  | placeTestB  |
 
 
 #  @api
