@@ -4,6 +4,9 @@ import com.TMG.apiTest.api.VOs.HotelVO;
 import com.TMG.apiTest.api.VOs.Locations;
 import com.TMG.apiTest.api.service.place.TravelHotelApi;
 import com.TMG.apiTest.api.service.place.TravelPlaceApi;
+import com.TMG.apiTest.config.AppConfig;
+import com.TMG.apiTest.config.HotelConfig;
+import com.TMG.apiTest.config.PlaceConfig;
 import com.TMG.apiTest.helper.StepDefinition;
 import com.TMG.apiTest.helper.PropertyReader;
 import com.TMG.apiTest.helper.TmgUtil;
@@ -23,21 +26,17 @@ public class TravelPlaceDefinition extends StepDefinition {
     PropertyReader propertyFileReader = null;
     TravelPlaceApi travelPlaceApi;
     TravelHotelApi travelHotelApi;
-    String createPlacePath;
     Integer placeIncrementer = null;
     String propertyFilePath = null;
     HashMap<String, String> placeIdMap  = new HashMap<String, String>();
 
     @Given("^I Initialize Travel Page \"([^\"]*)\"$")
     public void initializeTravelPage(String fileName) {
-        propertyFileReader = TmgUtil.loadPropertyFile(fileName, "travelPlace");
-        propertyFilePath = TmgUtil.getPropertyFilePath(fileName, "travelPlace");
-        System.out.println("propertyFilePath : "+propertyFilePath);
-        createPlacePath = propertyFileReader.readProperty("createPlacePath");
-        placeIncrementer = Integer.parseInt(propertyFileReader.readProperty("placeIncrementer"));
-        Integer nextValue = placeIncrementer + 1;
-        propertyFileReader.setProperty("placeIncrementer", nextValue+"", propertyFilePath);
-        travelPlaceApi = new TravelPlaceApi(getEnvironment().getEndpoints() + createPlacePath);
+        propertyFileReader = TmgUtil.loadPropertyFile(fileName, PlaceConfig.PLACE_PROPERTY_PACKAGE);
+        propertyFilePath = TmgUtil.getPropertyFilePath(fileName, PlaceConfig.PLACE_PROPERTY_PACKAGE);
+        placeIncrementer = Integer.parseInt(propertyFileReader.readProperty(PlaceConfig.PLACE_INCREMENTER));
+        propertyFileReader.setProperty(PlaceConfig.PLACE_INCREMENTER, (placeIncrementer + 1)+"", propertyFilePath);
+        travelPlaceApi = new TravelPlaceApi(getEnvironment().getEndpoints() + PlaceConfig.PLACE_URL);
     }
 
     @Then("^I create a Place \"([^\"]*)\" with type \"([^\"]*)\" lat \"([^\"]*)\" and long \"([^\"]*)\"$")
@@ -77,28 +76,26 @@ public class TravelPlaceDefinition extends StepDefinition {
 
     @When("^I add relationship between First Place A (.*) and Second Place B (.*), Place A as the parent of Place B$")
     public void addRelationshipBetweenFirstPlaceAAndSecondPlaceBPlaceAAsTheParentOfPlaceB(String placeNameA, String placeNameB) throws Exception {
-        String addRelationEndpoint = propertyFileReader.readProperty("addRelation");
         String placeIdA = (String) placeIdMap.get(placeNameA);
         String placeIdB = (String) placeIdMap.get(placeNameB);
         Thread.sleep(3000);
-        travelPlaceApi.addRelationBetweenPlaces(addRelationEndpoint, placeIdA,placeIdB );
+        travelPlaceApi.addRelationBetweenPlaces(PlaceConfig.ADD_RELATION_URL, placeIdA,placeIdB );
 
     }
 
     @Then("^I Search A Place \"([^\"]*)\"$")
     public void searchAPlace(String fileName) {
-        propertyFileReader = TmgUtil.loadPropertyFile(fileName, "travelPlace");
+        propertyFileReader = TmgUtil.loadPropertyFile(fileName, PlaceConfig.PLACE_PROPERTY_PACKAGE);
         String flakeId = propertyFileReader.readProperty("flakeId");
         String label = propertyFileReader.readProperty("label");
-        String searchPath = propertyFileReader.readProperty("searchEndPointPath");
-        travelPlaceApi.searchPlace("/" + flakeId + searchPath + "?label=" + label);
+        travelPlaceApi.searchPlace("/" + flakeId + PlaceConfig.SEARCH_URL + "?label=" + label);
     }
 
     @Then("^Hotel A should be available on Place B (.*) Hotel searches$")
     public void hotelAShouldBeAvailableOnPlaceBHotelSearches(String PlaceNameB) {
         //String placeToSearch = propertyFileReader.readProperty("id2");
         String placeToSearch = placeIdMap.get(PlaceNameB);
-        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
+        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + HotelConfig.HOTEL_URL);
         travelHotelApi.searchHotelByPlace("/search?annotations=", placeToSearch);
     }
 
@@ -106,21 +103,21 @@ public class TravelPlaceDefinition extends StepDefinition {
     public void hotelAShouldBeAvailableOnPlaceAHotelSearches(String PlaceNameA) {
         //String placeToSearch = propertyFileReader.readProperty("id1");
         String placeToSearch = placeIdMap.get(PlaceNameA);
-        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
-        travelHotelApi.searchHotelByPlace("/search?annotations=", placeToSearch);
+        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + HotelConfig.HOTEL_URL);
+        travelHotelApi.searchHotelByPlace(HotelConfig.SEARCH_URL, placeToSearch);
     }
 
     @When("^I create Hotel A with locations containing Place B \"([^\"]*)\"$")
     public void iCreateHotelAWithLocationsContainingPlaceB(String placeNameB) throws Throwable {
         try {
-            File file = ResourceUtils.getFile("classpath:com/TMG/apiTest/properties/hotel/createHotel.json");
+            File file = ResourceUtils.getFile(HotelConfig.CREATE_HOTEL_JSON_PATH);
             String content = new String(Files.readAllBytes(file.toPath()));
             ObjectMapper mapper = new ObjectMapper();
             HotelVO hotel = mapper.readValue(content , HotelVO.class);
             System.out.println("id of place B - " + placeIdMap.get(placeNameB));
             hotel.getLocations().get(0).setId(placeIdMap.get(placeNameB));
             hotel.getLocations().get(0).setLabel(placeNameB);
-            travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
+            travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + HotelConfig.HOTEL_URL);
             travelHotelApi.createHotelWithPlace("", content);
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,11 +126,11 @@ public class TravelPlaceDefinition extends StepDefinition {
 
     @Then("^I Delete Hotel A$")
     public void iDeleteHotelA() throws Throwable {
-        File file = ResourceUtils.getFile("classpath:com/TMG/apiTest/properties/hotel/createHotel.json");
+        File file = ResourceUtils.getFile(HotelConfig.CREATE_HOTEL_JSON_PATH);
         String content = new String(Files.readAllBytes(file.toPath()));
         ObjectMapper mapper = new ObjectMapper();
         HotelVO hotel = mapper.readValue(content , HotelVO.class);
-        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
+        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + HotelConfig.HOTEL_URL);
         travelHotelApi.deleteHotelByFlakeId("", hotel.getFlakeid());
     }
 
@@ -150,7 +147,7 @@ public class TravelPlaceDefinition extends StepDefinition {
 //        TravelPlace travelPlace = new TravelPlace();
 //        String placeId2 = propertyFileReader.readProperty("id2");
 //        String placeId3 = propertyFileReader.readProperty("id3");
-//        String addRelationEndpoint = propertyFileReader.readProperty("addRelation");
+//        String addRelationEndpoint = propertyFileReader.readProperty(PlaceConfig.ADD_RELATION_PATH);
 //        travelPlaceApi.addRelationBetweenMultiplePlaces(addRelationEndpoint, placeId2, placeId3);
 //
 //    }
@@ -170,7 +167,7 @@ public class TravelPlaceDefinition extends StepDefinition {
 //    @Then("^Hotel A should be available on Place X Hotel searches$")
 //    public void hotelAShouldBeAvailableOnPlaceXHotelSearches() {
 //        String placeToSearch = propertyFileReader.readProperty("id3");
-//        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
+//        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + HotelConfig.HOTEL_URL);
 //        travelHotelApi.searchHotelByPlace("/search?annotations=", placeToSearch);
 //
 //    }
@@ -189,7 +186,7 @@ public class TravelPlaceDefinition extends StepDefinition {
 //    @Then("^Hotel A should not be available on Place X Hotel searches$")
 //    public void hotelAShouldNotBeAvailableOnPlaceXHotelSearches() {
 //        String placeToSearch = propertyFileReader.readProperty("id3");
-//        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + "/travel-products/hotels");
+//        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + HotelConfig.HOTEL_URL);
 //        travelHotelApi.searchHotelByPlace("/search?annotations=", placeToSearch);
 //
 //    }
