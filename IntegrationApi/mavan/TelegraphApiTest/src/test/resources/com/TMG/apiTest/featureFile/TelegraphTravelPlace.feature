@@ -3,8 +3,8 @@ Feature: Create Search Travel Place
   @api
   Scenario Outline: Create Place
     Given I Initialize Travel Page "<createPlace>"
-     Then I Delete Hotel A
-     Then I Delete PlaceA and PlaceB and PlaceC and Hotel "<placename>" "<placename2>" "<placename3>"
+    Then I Delete Hotel A
+    Then I Delete PlaceA and PlaceB and PlaceC and Hotel "<placename>" "<placename2>" "<placename3>"
     Then I create a Place "<placename>" with type "<type>" lat "<lat>" and long "<long>"
     Then I create a Place "<placename2>" with type "<type2>" lat "<lat2>" and long "<long2>"
     Then I create a Place "<placename3>" with type "<type3>" lat "<lat3>" and long "<long3>"
