@@ -44,7 +44,7 @@ public class TravelPlaceDefinition extends StepDefinition {
     public void createPlace(String placeName, String type, String latitude, String longitude) {
         Locations location = new Locations();
         int random = TmgUtil.generateRandomNumber();
-        location.setId(""+random);
+        location.setId(""+placeIncrementer);
         location.setLabel(placeName);
         location.setType(type);
         location.setLat(latitude);
