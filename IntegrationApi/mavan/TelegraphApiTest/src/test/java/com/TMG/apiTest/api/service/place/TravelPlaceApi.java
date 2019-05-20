@@ -25,7 +25,7 @@ public class TravelPlaceApi {
         junit.framework.Assert.assertEquals("Correct Success code was returned", value, successCode);
     }
 
-    public void deletePlace(String apiPath){
+    public void deletePlace(String apiPath) {
 
     }
 
@@ -41,7 +41,7 @@ public class TravelPlaceApi {
 
     public void addRelationBetweenPlaces(String apiPath, String placeIdA, String placeIdB) {
         LOGGER.info("End Point : " + RestAssured.baseURI);
-        Response response = RestService.postMethod("json", "/" + placeIdB + apiPath+ "/" + placeIdA, "");
+        Response response = RestService.postMethod("json", "/" + placeIdB + apiPath + "/" + placeIdA, "");
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, 201);
     }
@@ -53,21 +53,21 @@ public class TravelPlaceApi {
     }
 
     public void deletePlace(String apiPath, String placeId) {
-        Response response = RestService.deleteMethod("json", apiPath+"/"+placeId);
+        Response response = RestService.deleteMethod("json", apiPath + "/" + placeId);
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, 200);
     }
 
-    public void addRelationBetweenMultiplePlaces(String apiPath, String placeId2, String placeId3) {
+    public void addRelationBetweenMultiplePlaces(String apiPath, String placeIdB, String placeIdC) {
         LOGGER.info("End Point : " + RestAssured.baseURI);
-        Response response = RestService.postMethod("json", "/" + placeId2 + "/addRelation/" + placeId3, "");
+        Response response = RestService.postMethod("json", "/" + placeIdB + "/addRelation/" + placeIdC, "");
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, 201);
     }
 
-    public void removeRelationBetweenMultiplePlaces(String apiPath, String placeId2, String placeId3) {
+    public void removeRelationBetweenMultiplePlaces(String apiPath, String placeIdB, String placeIdC) {
         LOGGER.info("End Point : " + RestAssured.baseURI);
-        Response response = RestService.postMethod("json", "/" + placeId2 + "/removeRelation/" + placeId3, "");
+        Response response = RestService.postMethod("json", "/" + placeIdB + "/removeRelation/" + placeIdC, "");
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, 200);
     }
