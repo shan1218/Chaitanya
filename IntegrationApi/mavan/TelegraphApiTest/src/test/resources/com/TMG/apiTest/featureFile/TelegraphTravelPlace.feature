@@ -24,7 +24,6 @@ Feature: Create Search Travel Place
       | placeA | placeB | placeC |
       | A      | B      | C      |
 
-
   @api
   Scenario Outline: Searching Created Multpile Hotels and Places
     Given I Initialize Travel Page
@@ -32,7 +31,6 @@ Feature: Create Search Travel Place
     Then Hotel A should be available on Place A "<placeA>" Hotel searches
     Then Hotel A should be available on Place B "<placeB>" Hotel searches
     Then Hotel A should be available on Place C "<placeC>" Hotel searches
-
 
     Examples:
       | placeA | placeB | placeC |

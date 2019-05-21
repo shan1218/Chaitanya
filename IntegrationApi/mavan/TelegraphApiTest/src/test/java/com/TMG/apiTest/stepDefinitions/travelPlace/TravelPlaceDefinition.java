@@ -4,14 +4,12 @@ import com.TMG.apiTest.api.VOs.HotelVO;
 import com.TMG.apiTest.api.VOs.Locations;
 import com.TMG.apiTest.api.service.place.TravelHotelApi;
 import com.TMG.apiTest.api.service.place.TravelPlaceApi;
-import com.TMG.apiTest.config.AppConfig;
 import com.TMG.apiTest.config.HotelConfig;
 import com.TMG.apiTest.config.PlaceConfig;
 import com.TMG.apiTest.helper.StepDefinition;
 import com.TMG.apiTest.helper.PropertyReader;
 import com.TMG.apiTest.helper.TmgUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -155,7 +153,6 @@ public class TravelPlaceDefinition extends StepDefinition {
 
     @When("^I add relationship between Place A \"([^\"]*)\" and Third Place C \"([^\"]*)\", Place C as a parent of Place B$")
     public void iAddRelationshipBetweenPlaceAAndPlaceCPlaceCAsAParentOfPlaceB(String placeNameC, String placeNameB) throws Throwable {
-
         placeNameB = placeNameB.replaceAll("\"", "");
         placeNameC = placeNameC.replaceAll("\"", "");
         String placeIdB = propertyFileReader.readProperty((PlaceConfig.ID + placeNameB).trim());
