@@ -122,13 +122,6 @@ public class TravelPlaceDefinition extends StepDefinition {
         travelHotelApi.deleteHotelByFlakeId("", hotel.getFlakeid());
     }
 
-    @Then("^I Delete PlaceA and PlaceB and PlaceC and Hotel \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
-    public void iDeletePlaceAAndPlaceBAndPlaceCAndHotel(String place1, String place2, String place3) throws Throwable {
-        travelPlaceApi.deletePlace("", place3);
-        travelPlaceApi.deletePlace("", place2);
-        travelPlaceApi.deletePlace("", place1);
-    }
-
     @Then("^I create a Place \"([^\"]*)\"$")
     public void iCreateAPlace(String placeId) {
         placeId = placeId.replaceAll("\"", "");
@@ -144,7 +137,7 @@ public class TravelPlaceDefinition extends StepDefinition {
     }
 
     @Then("^I delete a Place \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
-    public void iDeleteAPlace(String place1, String place2, String place3) throws Throwable {
+    public void iDeleteAPlace(String place1, String place2, String place3)  {
         place1 = place1.replace("\"", "");
         travelPlaceApi.deletePlace("", propertyFileReader.readProperty((PlaceConfig.ID + place3).trim()));
         travelPlaceApi.deletePlace("", propertyFileReader.readProperty((PlaceConfig.ID + place2).trim()));

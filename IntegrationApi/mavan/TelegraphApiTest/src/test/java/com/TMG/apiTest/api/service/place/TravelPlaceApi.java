@@ -55,7 +55,7 @@ public class TravelPlaceApi {
     public void deletePlace(String apiPath, String placeId) {
         Response response = RestService.deleteMethod("json", apiPath + "/" + placeId);
         int statusCode = response.getStatusCode();
-        Assert.assertEquals(statusCode, 200 );
+        Assert.assertEquals(statusCode,200 );
     }
 
     public void addRelationBetweenMultiplePlaces(String apiPath, String placeIdB, String placeIdC) {
