@@ -1,7 +1,7 @@
 Feature: Create Search Travel Place
 
   @api
-  Scenario Outline: Create Place
+  Scenario Outline: Create Place and Hotels
     Given I Initialize Travel Page
     Then I delete a Place "<placeA>" "<placeB>" "<placeC>"
     Then I create a Place "<placeA>"
@@ -14,7 +14,7 @@ Feature: Create Search Travel Place
       | A      | B      | C      |
 
   @api
-  Scenario Outline: Search Place
+  Scenario Outline: Adding the relation ship between places
     Given I Initialize Travel Page
     When I add relationship between First Place A "<placeA>" and Second Place B "<placeB>" , Place A as the parent of Place B
     Then Hotel A should be available on Place A "<placeA>" Hotel searches
@@ -26,7 +26,7 @@ Feature: Create Search Travel Place
 
 
   @api
-  Scenario Outline: Searching Deleted Multpile Hotel and Place
+  Scenario Outline: Deleting the relation between places
     Given I Initialize Travel Page
     When I remove relationship between Place A "<placeA>" and Second Place B "<placeB>" , remove Place A as the parent of Place B
     Then Hotel A should not be available on Place B "<placeB>"Hotel searches
@@ -37,7 +37,7 @@ Feature: Create Search Travel Place
 
 
   @api
-  Scenario Outline: Searching Created Multpile Hotels and Places
+  Scenario Outline:Adding the relation ship between multpiple places
     Given I Initialize Travel Page
     When I add relationship between Place A "<placeA>" and Third Place C "<placeC>", Place C as a parent of Place B
     Then Hotel A should be available on Place A "<placeA>" Hotel searches
@@ -49,7 +49,7 @@ Feature: Create Search Travel Place
       | A      | B      | C      |
 
   @api
-  Scenario Outline: Search Deleted Multpile Hotels and Places
+  Scenario Outline: Deleting the relation between multiple places
     Given I Initialize Travel Page
     When I remove relationship between Place A "<placeA>" and Third Place C "<placeC>", remove Place C as a parent of Place B
     Then Hotel A should not be available on Place C "<placeC>"  Hotel searches
