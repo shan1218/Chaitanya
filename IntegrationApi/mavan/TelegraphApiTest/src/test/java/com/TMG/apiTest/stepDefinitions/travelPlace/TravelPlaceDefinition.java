@@ -10,6 +10,7 @@ import com.TMG.apiTest.helper.StepDefinition;
 import com.TMG.apiTest.helper.PropertyReader;
 import com.TMG.apiTest.helper.TmgUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -191,5 +192,28 @@ public class TravelPlaceDefinition extends StepDefinition {
     }
 
 
+    @When("^I remove relationship between Place A \"([^\"]*)\" and Second Place B \"([^\"]*)\" , remove Place A as the parent of Place B$")
+    public void iRemoveRelationshipBetweenPlaceAAndSecondPlaceBPlaceAAsTheParentOfPlaceB(String placeNameA, String placeNameB) throws Throwable {
+
+        placeNameA = placeNameA.replaceAll("\"", "");
+        placeNameB = placeNameB.replaceAll("\"", "");
+        String placeIdB = propertyFileReader.readProperty((PlaceConfig.ID + placeNameB).trim());
+        String placeIdA = propertyFileReader.readProperty((PlaceConfig.ID + placeNameA).trim());
+        System.out.println("\n" + placeIdB + " : " + placeIdA);
+        Thread.sleep(3000);
+        travelPlaceApi.removeRelationBetweenMultiplePlaces(PlaceConfig.REMOVE_RELATION_URL, placeIdB, placeIdA);
+    }
+
+    @Then("^Hotel A should not be available on Place B \"([^\"]*)\"Hotel searches$")
+    public void hotelAShouldNotBeAvailableOnPlaceBHotelSearches(String PlaceNameB) {
+
+        PlaceNameB = PlaceNameB.replaceAll("\"", "");
+        PlaceNameB = propertyFileReader.readProperty((PlaceConfig.ID + PlaceNameB).trim());
+        System.out.println("Place Name : " + PlaceNameB);
+        travelHotelApi = new TravelHotelApi(getEnvironment().getEndpoints() + HotelConfig.HOTEL_URL);
+        travelHotelApi.searchHotelByPlace(HotelConfig.SEARCH_URL, PlaceNameB);
+
+
+    }
 }
 
