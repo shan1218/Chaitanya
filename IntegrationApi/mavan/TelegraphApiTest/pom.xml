@@ -19,7 +19,7 @@
         <cucumber-version>1.2.5</cucumber-version>
         <selenium-version>3.5.3</selenium-version>
         <maven-surefire-version>2.20</maven-surefire-version>
-        <springframework>4.3.7.RELEASE</springframework>
+        <springframework>5.3.18</springframework>
     </properties>
 
     <dependencies>
